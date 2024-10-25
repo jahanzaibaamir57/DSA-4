@@ -18,7 +18,8 @@ void PriorityQueue::insert(const string& name, const string& role, int priority)
     if (head == nullptr || head->priority > priority) {
         newNode->next = head;
         head = newNode;
-    } else {
+    }
+    else {
         Node* current = head;
         while (current->next != nullptr && current->next->priority <= priority) {
             current = current->next;
