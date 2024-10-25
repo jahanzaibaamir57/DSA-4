@@ -1,20 +1,34 @@
 #include "PriorityQueue.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 int main() {
     PriorityQueue pq;
-
     ifstream file("data.txt");
-    string name, role;
-    int priority;
+    string line;
 
-    while (file >> name >> role >> priority) {
+    cout << "Entries before sorting:\n";
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string name, role;
+        int priority;
+
+        ss >> priority;
+        getline(ss, role, ' '); 
+
+        getline(ss, name);
+
+        role.erase(0, role.find_first_not_of(" "));
+        name.erase(0, name.find_first_not_of(" "));
+
+        cout << name << " " << role << " " << priority << endl;
+
         pq.insert(name, role, priority);
     }
     file.close();
 
-    cout << "Priority Queue (sorted by priority):\n";
+    cout << "\nPriority Queue (sorted by priority):\n";
     Node* current = pq.getHead();
     while (current != nullptr) {
         cout << "Name: " << current->name << ", Role: " << current->role << ", Priority: " << current->priority << endl;
